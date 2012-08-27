@@ -1,0 +1,132 @@
+commit 96eef54f55acf4bf3a34d71e638e4522285a1080
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:38:05 2012 +1000
+
+    fix sessionWineName
+
+commit eb5e76f1f23566719a96d96235a7587435cbaf92
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:26:44 2012 +1000
+
+    modify resultView.php
+
+commit 7d427574e5bd5d5c12f170193de1b64adb634562
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:25:35 2012 +1000
+
+    change searchView
+
+commit 0d471883310e3022a5d1d516699215bf9e5f2c43
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:23:51 2012 +1000
+
+    ensession, view session wine names
+
+commit ecb7a538e0bf0021f51b644b622a47c647d4b6ba
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:16:33 2012 +1000
+
+    file for session created
+
+commit 085cf6e443178de7de42076243c1e1166809854e
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:15:42 2012 +1000
+
+    twitter post function
+
+commit a4b0455ad35b9f3f7cb6ef054a802b4004fcf412
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:10:52 2012 +1000
+
+    database file modify
+
+commit ade8b3a81f3fac34ad55599c756789db5dd2f01c
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 22:07:51 2012 +1000
+
+    twitter api added
+
+commit bfdeb17b8f984893ee29a3b6e740fb0082b18163
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:56:46 2012 +1000
+
+    change some announcement
+
+commit f8c344524fb284afc26334f84a4dd010c4a845ac
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:53:35 2012 +1000
+
+    fix resultView to use pdo
+
+commit acc01793183fb4ef3d515795a3d8dadbf2694fd9
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:48:04 2012 +1000
+
+    fix searchView to use pdo
+
+commit 4a7d467e27b390a03c68f789cd4eba23134657a3
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:46:10 2012 +1000
+
+    database detail db.php
+
+commit 65a2d3d4f9720af9acc5416778d9e84e7810217d
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:45:13 2012 +1000
+
+    fix to use pdo
+
+commit b8850fb9b1f116c25ee8d27374366311a7361303
+Merge: 63db863... b125e9c...
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:40:34 2012 +1000
+
+    Merge branch 'master' of git@github.com:s3270226/assignmentBDE
+
+commit 63db863228d5affb92cc481e45c99f0e7d9925d4
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:31:48 2012 +1000
+
+    change connect file to use pdo
+
+commit b125e9c83bd73326bbe53e311187896617b7796f
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:27:21 2012 +1000
+
+    add file
+
+commit 855c5d3de0962aa467f150064ab1ca1019248e94
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:20:45 2012 +1000
+
+    change result view
+
+commit f298e255e4365c2f6782df7c93aaf619a5797fc6
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:13:02 2012 +1000
+
+    result view added
+
+commit 5f6a24a457ad15bae6aebd9920a9bca08c5d148a
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:09:33 2012 +1000
+
+    add search View
+
+commit 05c0e97dde565dcb6f96da58af6d1cd68f6b6de1
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:06:23 2012 +1000
+
+    adding connect.php file
+
+commit 6762400dd0d796fa7f9888d65f5a0fd593adb707
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 21:04:26 2012 +1000
+
+    add db details
+
+commit 70dd31ca5ab04b9d2c3ca3dc03bb895f45facd62
+Author: Phan Truong Du <s3270226@student.rmit.edu.au>
+Date:   Mon Aug 27 20:58:17 2012 +1000
+
+    first commit
