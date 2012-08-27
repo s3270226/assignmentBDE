@@ -7,4 +7,3 @@ require_once('config.ini.php');
 		echo $e->getMessage();
 	}
 ?>
-
