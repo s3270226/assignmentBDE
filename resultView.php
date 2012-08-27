@@ -25,14 +25,14 @@ require_once("connect.php");
 		$inputError;
 	//end of variable assign
 	//input validation
-		if($yearLowerBound>$yearUpperBound){
-			$inputError= 'Year lower bound should be less than or equal to year upper bound <br>';
-			$validInput=false;
-		}
-		if($minimumCost>$maximumCost && $minimumCost!="" && $maximumCost!=""){
-			$inputError.='Minimum cost should be less than or equal to maximum cost<br>';
-			$validInput=false;
-		}
+	if($yearLowerBound>$yearUpperBound){
+		$inputError= 'Year lower bound should be less than or equal to year upper bound <br>';
+		$validInput=false;
+	}
+	if($minimumCost>$maximumCost && $minimumCost!="" && $maximumCost!=""){
+		$inputError.='Minimum cost should be less than or equal to maximum cost<br>';
+		$validInput=false;
+	}
 	//end of input validation
 		
 	if($validInput==true)
@@ -65,7 +65,7 @@ require_once("connect.php");
 			$minimumNumberOfWineOrdered="";
 		}
 	}else{
-		echo "BIG ERROR!! PLEASE GO BACK AND FIX YOUR INPUT!!<br>";
+		echo "BIG ERROR!! PLEASE GO BACK AND FIX YOUR INPUT IMMEDIATELY!!<br>";
 		echo $inputError;
 	}
 	//end of query preparation
