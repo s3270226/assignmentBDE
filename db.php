@@ -8,18 +8,18 @@
 /**
  * Hostname and port mysql is running on (can't use localhost)
  */
-define('DB_HOST',   'yallara.cs.rmit.edu.au:53679');
+define('DB_HOST','yallara.cs.rmit.edu.au:53679');
 /**
  * Name of database to connect to
  */
-define('DB_NAME',   'winestore');
+define('DB_NAME','winestore');
 /**
  * Username to connect with
  */
-define('DB_USER',   'winestore');
+define('DB_USER','winestore');
 
 /**
  * Password to connect with
  */
-define('DB_PW',     '1561991');
+define('DB_PW','1561991');
 ?>
