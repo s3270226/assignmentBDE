@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once('twittersettup.php');
-	echo '<a href="?submit=share">post to twitter</a>';
+	echo '<a href="?submit=share">post to twitter</a>&nbsp;';
 	if($_GET['submit']=='share'){
 		postTwitter($_SESSION['wineName']);
 	}
