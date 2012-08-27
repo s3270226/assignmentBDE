@@ -9,8 +9,16 @@
 <body bgcolor="white">
 	<?php
 	//connect to database;
+		session_start();
 		require_once("connect.php");
+		if(!$_SESSION['inSession']){
+			echo '<a href="beginSession.php">Start Session</a><br>';
+		}else{
+			echo '<a href="endSession.php">End Session</a>&nbsp;';
+			echo '<a href="sessionWineName.php">Show this session wine names</a></br>';
+		}
 	?>
+	
 	<form action="resultView.php" method="GET">
 		<br>Wine Name:
 		<input type="text" name="wineName">
