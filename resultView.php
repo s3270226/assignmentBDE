@@ -1,6 +1,8 @@
 <?php 
 require_once("connect.php");
+?>
 
+<?php
 	//function declaration
 		function IsNullOrEmptyString($question){
 			return (!isset($question) || trim($question)==='');
@@ -13,7 +15,7 @@ require_once("connect.php");
 		$yearLowerBound=$_GET["yearLowerBound"];
 		$yearUpperBound=$_GET["yearUpperBound"];
 		$wineryName=$_GET["wineryName"];
-		$region=$_GET["Region"];
+		$region=$_GET["region"];
 		$minimumCost=$_GET["minimumCost"];
 		$maximumCost=$_GET["maximumCost"];
 		$minimumNumberOfWineInStock=$_GET["minimumNumberOfWineInStock"];
@@ -22,13 +24,12 @@ require_once("connect.php");
 		$validInput=true;
 		$inputError;
 	//end of variable assign
-		
 	//input validation
 		if($yearLowerBound>$yearUpperBound){
 			$inputError= 'Year lower bound should be less than or equal to year upper bound <br>';
 			$validInput=false;
 		}
-		if($minimumCost>$maximumCost){
+		if($minimumCost>$maximumCost && $minimumCost!="" && $maximumCost!=""){
 			$inputError.='Minimum cost should be less than or equal to maximum cost<br>';
 			$validInput=false;
 		}
@@ -43,33 +44,25 @@ require_once("connect.php");
 		if($grapeVariety=="All"){
 			$grapeVariety="";
 		}
-		if($region=="All"){
-			$region="";
-		}
 		if(IsNullOrEmptyString($wineryName)){
 			$wineryName="";
 		}
+		if($region=="All"){
+			$region="";
+		}
 		if(IsNullOrEmptyString($minimumCost)){
-			$minimumCostCondition="";
-		}else{
-			$minimumCostCondition=" and cost >= {$minimumCost}";
+			$minimumCost="";
 		}
 
 		if(IsNullOrEmptyString($maximumCost)){
-			$maximumCostCondition="";
-		}else{
-			$maximumCostCondition=" and cost <= {$maximumCost}";
+			$maximumCost="";
 		}
 
 		if(IsNullOrEmptyString($minimumNumberOfWineInStock)){
-			$minimumNumberOfWineInstockCondition="";
-		}else{
-			$minimumNumberOfWineInstockCondition=" and on_hand >= {$minimumNumberOfWineInStock}";
+			$minimumNumberOfWineInstock="";
 		}
 		if(IsNullOrEmptyString($minimumNumberOfWineOrdered)){
-			$minimumNumberOfWineOrderedCondition="";
-		}else{
-			$minimumNumberOfWineOrderedCondition=" and amount_sold >= {$minimumNumberOfWineOrdered}";
+			$minimumNumberOfWineOrdered="";
 		}
 	}else{
 		echo "BIG ERROR!! PLEASE GO BACK AND FIX YOUR INPUT!!<br>";
@@ -79,27 +72,36 @@ require_once("connect.php");
 	
 	if($validInput==true)
 	{
-		echo '<h1>Winestore Result!!!<h1>';
-		//querry with wines that have order recorded
-		$query = "select * from final_print_with_order_view 
-		where wine_name like '%{$wineName}%' 
-		and variety like '%{$grapeVariety}%'
-		and year >= {$yearLowerBound} and year <= {$yearUpperBound}
-		and winery_name like '%{$wineryName}%'
-		and region_name like '%{$region}%'
-		{$minimumCostCondition} {$maximumCostCondition}
-		{$minimumNumberOfWineInstockCondition}
-		{$minimumNumberOfWineOrderedCondition}
-		";
+		echo '<h1>Winestore ore ore ore!!!<h1>';
 		
-		//echo $query;
+		$statement = $db->prepare("select * from final_print_with_order_view 
+		where wine_name like :wineName
+		and variety like :grapeVariety
+		and year >= :yearLowerBound and year <= :yearUpperBound
+		and winery_name like :wineryName
+		and region_name like :region
+		and (cost >= :costLowerBound or :costLowerBound='') and (cost <= :costUpperBound or :costUpperBound ='')
+		and (on_hand >= :minimumNumberOfWineInStock or :minimumNumberOfWineInStock='') 
+		and (amount_sold >= :minimumNumberOfWineOrdered or :minimumNumberOfWineOrdered='')
+		");
+
+		$statement->execute(array(':wineName' => '%'.$wineName.'%',
+		':grapeVariety'=>'%'.$grapeVariety.'%',
+		':yearLowerBound' => $yearLowerBound,
+		':yearUpperBound' => $yearUpperBound,
+		':wineryName' => '%'.$wineryName.'%',
+		':region'=>'%'.$region.'%',
+		':costLowerBound' => $minimumCost,
+		':costUpperBound' => $maximumCost,
+		':minimumNumberOfWineInStock'=>$minimumNumberOfWineInStock,
+		':minimumNumberOfWineOrdered'=>$minimumNumberOfWineOrdered
+		));
+		//querry with wines that have order recorded
+		
+		$rowCount=0;
 		echo '<br>';
 		echo '<h3>Listing of wine with ordered recorded</h3>';
 		
-		$result = mysql_query($query, $dbconn);
-		
-		if(mysql_num_rows($result)>0)
-		{
 			echo '
 			<table border="1">
 			<tr>
@@ -114,7 +116,7 @@ require_once("connect.php");
 				<td>amount sold</td>
 				<td>revenue</td>
 			</tr>';
-			while($row=mysql_fetch_array($result))
+			foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $row)
 			{
 				echo '
 				<tr>
@@ -129,29 +131,41 @@ require_once("connect.php");
 					<td>'.$row['amount_sold'].'</td>
 					<td>'.$row['revenue'].'</td>
 				</tr>';
+				$rowCount=$rowCount+1;
 			}
 			echo '</table>';
-		}else{
-			echo 'no result found';
+		if($rowCount==0){
+			echo 'No Result found <br>';
 		}
 		
-	//querry to get wines with no order yet
-		$query = "select * from final_print_no_order_view 
-		where wine_name like '%{$wineName}%' 
-		and variety like '%{$grapeVariety}%'
-		and year >= {$yearLowerBound} and year <= {$yearUpperBound}
-		and winery_name like '%{$wineryName}%'
-		and region_name like '%{$region}%'
-		{$minimumCostCondition} {$maximumCostCondition}
-		{$minimumNumberOfWineInstockCondition}
-		";
+		//querry to get wines with no order yet
+		
+		$statement = $db->prepare("select * from final_print_no_order_view 
+		where wine_name like :wineName
+		and variety like :grapeVariety
+		and year >= :yearLowerBound and year <= :yearUpperBound
+		and winery_name like :wineryName
+		and region_name like :region
+		and (cost >= :costLowerBound or :costLowerBound='') and (cost <= :costUpperBound or :costUpperBound ='')
+		and (on_hand >= :minimumNumberOfWineInStock or :minimumNumberOfWineInStock='') 
+		");
+
+		$statement->execute(array(':wineName' => '%'.$wineName.'%',
+		':grapeVariety'=>'%'.$grapeVariety.'%',
+		':yearLowerBound' => $yearLowerBound,
+		':yearUpperBound' => $yearUpperBound,
+		':wineryName' => '%'.$wineryName.'%',
+		':region'=>'%'.$region.'%',
+		':costLowerBound' => $minimumCost,
+		':costUpperBound' => $maximumCost,
+		':minimumNumberOfWineInStock'=>$minimumNumberOfWineInStock,
+		));
+		
+		
 		echo '<h3>Listing of wine that have no order recorded</h3>';
 		
-		//echo $query . '<br>';
 
-		$result = mysql_query($query, $dbconn);
-		if(mysql_num_rows($result)>0)
-		{
+		$rowCount=0;
 			echo '
 			<table border="1">
 			<tr>
@@ -163,9 +177,11 @@ require_once("connect.php");
 				<td>region name</td>
 				<td>cost</td>
 				<td>on hand</td>
+				<td>amount sold</td>
+				<td>revenue</td>
 			</tr>';
 			
-			while($row=mysql_fetch_array($result))
+			foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $row)
 			{
 				echo '
 				<tr>
@@ -177,14 +193,15 @@ require_once("connect.php");
 					<td>'.$row['region_name'].'</td>
 					<td>'.$row['cost'].'</td>
 					<td>'.$row['on_hand'].'</td>
+					<td>null</td>
+					<td>null</td>
 				</tr>';
+				$rowCount=$rowCount+1;
 			}
 			echo '</table>';
-		}else{
-			echo 'no result found';
+		if($rowCount==0){
+			echo 'No Result found <br>';
 		}
 	}
+	$db=null;
 ?>
-
-
-
