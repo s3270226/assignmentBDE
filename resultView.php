@@ -1,5 +1,17 @@
 <?php 
 require_once("connect.php");
+session_start();
+
+		if(!$_SESSION['inSession']){
+			echo '<a href="searchView.php">back to search page</a>&nbsp;';
+			echo '<a href="beginSession.php">Start Session</a><br>';
+			
+		}else{
+			echo '<a href="searchView.php">back to search page</a>&nbsp;';
+			echo '<a href="endSession.php">End Session</a>&nbsp;';
+			echo '<a href="sessionWineName.php">Show this session wine names</a></br>';
+		}
+		
 ?>
 
 <?php
@@ -25,14 +37,14 @@ require_once("connect.php");
 		$inputError;
 	//end of variable assign
 	//input validation
-	if($yearLowerBound>$yearUpperBound){
-		$inputError= 'Year lower bound should be less than or equal to year upper bound <br>';
-		$validInput=false;
-	}
-	if($minimumCost>$maximumCost && $minimumCost!="" && $maximumCost!=""){
-		$inputError.='Minimum cost should be less than or equal to maximum cost<br>';
-		$validInput=false;
-	}
+		if($yearLowerBound>$yearUpperBound){
+			$inputError= 'Year lower bound should be less than or equal to year upper bound <br>';
+			$validInput=false;
+		}
+		if($minimumCost>$maximumCost && $minimumCost!="" && $maximumCost!=""){
+			$inputError.='Minimum cost should be less than or equal to maximum cost<br>';
+			$validInput=false;
+		}
 	//end of input validation
 		
 	if($validInput==true)
@@ -65,7 +77,7 @@ require_once("connect.php");
 			$minimumNumberOfWineOrdered="";
 		}
 	}else{
-		echo "BIG ERROR!! PLEASE GO BACK AND FIX YOUR INPUT IMMEDIATELY!!<br>";
+		echo "BIG ERROR!! PLEASE GO BACK AND FIX YOUR INPUT!!<br>";
 		echo $inputError;
 	}
 	//end of query preparation
@@ -99,6 +111,7 @@ require_once("connect.php");
 		//querry with wines that have order recorded
 		
 		$rowCount=0;
+		//echo $query;
 		echo '<br>';
 		echo '<h3>Listing of wine with ordered recorded</h3>';
 		
@@ -116,8 +129,10 @@ require_once("connect.php");
 				<td>amount sold</td>
 				<td>revenue</td>
 			</tr>';
+			$_SESSION['wineName']=array();
 			foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $row)
 			{
+				$_SESSION['wineName'][$row['wine_name']]=$row['wine_name'];
 				echo '
 				<tr>
 					<td>'.$row['wine_id'].'</td>
@@ -137,6 +152,7 @@ require_once("connect.php");
 		if($rowCount==0){
 			echo 'No Result found <br>';
 		}
+	
 		
 		//querry to get wines with no order yet
 		
@@ -164,6 +180,7 @@ require_once("connect.php");
 		
 		echo '<h3>Listing of wine that have no order recorded</h3>';
 		
+		//echo $query . '<br>';
 
 		$rowCount=0;
 			echo '
@@ -177,12 +194,11 @@ require_once("connect.php");
 				<td>region name</td>
 				<td>cost</td>
 				<td>on hand</td>
-				<td>amount sold</td>
-				<td>revenue</td>
 			</tr>';
 			
 			foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $row)
 			{
+				$_SESSION['wineName'][$row['wine_name']]=$row['wine_name'];
 				echo '
 				<tr>
 					<td>'.$row['wine_id'].'</td>
@@ -193,8 +209,6 @@ require_once("connect.php");
 					<td>'.$row['region_name'].'</td>
 					<td>'.$row['cost'].'</td>
 					<td>'.$row['on_hand'].'</td>
-					<td>null</td>
-					<td>null</td>
 				</tr>';
 				$rowCount=$rowCount+1;
 			}
