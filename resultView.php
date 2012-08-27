@@ -1,8 +1,6 @@
 <?php 
 require_once("connect.php");
-?>
 
-<?php
 	//function declaration
 		function IsNullOrEmptyString($question){
 			return (!isset($question) || trim($question)==='');
@@ -81,7 +79,7 @@ require_once("connect.php");
 	
 	if($validInput==true)
 	{
-		echo '<h1>Winestore ore ore ore!!!<h1>';
+		echo '<h1>Winestore Result!!!<h1>';
 		//querry with wines that have order recorded
 		$query = "select * from final_print_with_order_view 
 		where wine_name like '%{$wineName}%' 
